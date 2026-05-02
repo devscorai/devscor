@@ -38,7 +38,7 @@ export function BrowserWindow({
         ) : null}
       </div>
 
-      <div className={cn("relative aspect-video bg-card", contentClassName)}>
+      <div className={cn("relative aspect-16/10 bg-card", contentClassName)}>
         {children}
       </div>
     </div>

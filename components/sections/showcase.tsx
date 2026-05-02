@@ -2,7 +2,9 @@
 
 import * as React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import AutoScroll from "embla-carousel-auto-scroll"
+import { ArrowUpRight } from "lucide-react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 
 import {
@@ -11,6 +13,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel"
 import { BrowserWindow } from "@/components/browser-window"
+import { ShowcaseFrame } from "@/components/showcase-frame"
 import { projects, type Project } from "@/config/projects"
 import { cn } from "@/lib/utils"
 
@@ -122,34 +125,51 @@ export function Showcase() {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="flex h-full flex-col gap-5">
-      <BrowserWindow url={project.url} className="transition-shadow duration-300 hover:shadow-lg">
-        {project.imageSrc ? (
-          <Image
-            src={project.imageSrc}
-            alt={`${project.name} — vista del sitio web`}
-            fill
-            sizes="(min-width: 1280px) 36vw, (min-width: 1024px) 42vw, (min-width: 640px) 60vw, 88vw"
-            className="object-cover"
-          />
-        ) : (
-          <div
-            aria-hidden
-            className={cn(
-              "absolute inset-0 bg-linear-to-br",
-              project.placeholderGradient ??
-                "from-zinc-200 via-zinc-300 to-zinc-400"
-            )}
-          />
-        )}
-      </BrowserWindow>
+    <article className="group relative flex h-full flex-col gap-5">
+      <ShowcaseFrame className={project.frameClassName}>
+        <BrowserWindow
+          url={project.url}
+          className="shadow-2xl shadow-black/30 ring-1 ring-black/5 transition-transform duration-500 group-hover:scale-[1.01]"
+        >
+          {project.imageSrc ? (
+            <Image
+              src={project.imageSrc}
+              alt={`${project.name} — vista del sitio web`}
+              fill
+              sizes="(min-width: 1280px) 36vw, (min-width: 1024px) 42vw, (min-width: 640px) 60vw, 88vw"
+              className="object-cover"
+            />
+          ) : (
+            <div
+              aria-hidden
+              className={cn(
+                "absolute inset-0 bg-linear-to-br",
+                project.placeholderGradient ??
+                  "from-zinc-200 via-zinc-300 to-zinc-400",
+              )}
+            />
+          )}
+        </BrowserWindow>
+      </ShowcaseFrame>
 
       <div className="px-1">
         <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
           {project.industry}
         </p>
         <h3 className="mt-2 text-lg font-medium tracking-tight text-foreground">
-          {project.name}
+          <Link
+            href={`https://${project.url}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 outline-none after:absolute after:inset-0 after:content-[''] focus-visible:[&>svg]:opacity-60"
+            aria-label={`Visitar ${project.name} en ${project.url}`}
+          >
+            {project.name}
+            <ArrowUpRight
+              aria-hidden
+              className="size-4 -translate-y-px opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-60"
+            />
+          </Link>
         </h3>
         <p className="mt-1 text-sm text-muted-foreground">
           {project.description}

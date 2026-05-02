@@ -7,6 +7,7 @@ import { ArrowUpRight } from "lucide-react"
 import { BrowserWindow } from "@/components/browser-window"
 import { CTA } from "@/components/sections/cta"
 import { PageHero } from "@/components/page-hero"
+import { ShowcaseFrame } from "@/components/showcase-frame"
 import { projects, type Project } from "@/config/projects"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -64,66 +65,66 @@ function ProjectsGrid() {
 }
 
 function ProjectCard({ project }: { project: Project }) {
-  const inner = (
-    <>
-      <BrowserWindow
-        url={project.url}
-        className="transition-shadow duration-300 group-hover:shadow-lg"
-      >
-        {project.imageSrc ? (
-          <Image
-            src={project.imageSrc}
-            alt={`${project.name} — vista del sitio web`}
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover"
-          />
-        ) : (
-          <div
-            aria-hidden
-            className={cn(
-              "absolute inset-0 bg-linear-to-br",
-              project.placeholderGradient ??
-                "from-zinc-200 via-zinc-300 to-zinc-400",
-            )}
-          />
-        )}
-      </BrowserWindow>
+  const isExternal = !project.caseHref
+  const href = project.caseHref ?? `https://${project.url}`
 
-      <div className="mt-5 flex items-start justify-between gap-4 px-1">
-        <div>
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            {project.industry}
-          </p>
-          <h3 className="mt-2 text-lg font-medium tracking-tight text-foreground transition-colors group-hover:text-foreground/80">
-            {project.name}
-          </h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {project.description}
-          </p>
-        </div>
+  return (
+    <article className="group relative flex flex-col">
+      <ShowcaseFrame className={project.frameClassName}>
+        <BrowserWindow
+          url={project.url}
+          className="shadow-2xl shadow-black/30 ring-1 ring-black/5 transition-transform duration-500 group-hover:scale-[1.01]"
+        >
+          {project.imageSrc ? (
+            <Image
+              src={project.imageSrc}
+              alt={`${project.name} — vista del sitio web`}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
+          ) : (
+            <div
+              aria-hidden
+              className={cn(
+                "absolute inset-0 bg-linear-to-br",
+                project.placeholderGradient ??
+                  "from-zinc-200 via-zinc-300 to-zinc-400",
+              )}
+            />
+          )}
+        </BrowserWindow>
+      </ShowcaseFrame>
 
-        {project.caseHref ? (
-          <span
-            aria-hidden
-            className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-md border border-border text-muted-foreground transition-all duration-300 group-hover:border-foreground/30 group-hover:text-foreground"
+      <div className="mt-5 px-1">
+        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+          {project.industry}
+        </p>
+        <h3 className="mt-2 text-lg font-medium tracking-tight text-foreground">
+          <Link
+            href={href}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+            className="inline-flex items-center gap-1 outline-none after:absolute after:inset-0 after:content-[''] focus-visible:[&>svg]:opacity-60"
+            aria-label={
+              isExternal
+                ? `Visitar ${project.name} en ${project.url}`
+                : `Ver caso de estudio de ${project.name}`
+            }
           >
-            <ArrowUpRight className="size-3.5" />
-          </span>
-        ) : null}
+            {project.name}
+            <ArrowUpRight
+              aria-hidden
+              className="size-4 -translate-y-px opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-60"
+            />
+          </Link>
+        </h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {project.description}
+        </p>
       </div>
-    </>
+    </article>
   )
-
-  if (project.caseHref) {
-    return (
-      <Link href={project.caseHref} className="group block">
-        {inner}
-      </Link>
-    )
-  }
-
-  return <article className="group block">{inner}</article>
 }
 
 function SoonSection() {
