@@ -72,10 +72,10 @@ export default function TerminosPage() {
 
           <Section title="4. Pagos">
             <p>
-              Los precios se expresan en soles peruanos (S/) y, salvo indicación
-              contraria, no incluyen IGV. La estructura de pago estándar es 50%
-              al iniciar el proyecto y 50% al entregar, salvo que se acuerde
-              algo distinto por escrito.
+              Los precios se expresan en dólares americanos (USD) y, salvo
+              indicación contraria, no incluyen IGV ni impuestos locales. La
+              estructura de pago estándar es 50% al iniciar el proyecto y 50%
+              al entregar, salvo que se acuerde algo distinto por escrito.
             </p>
             <p>
               El pago final habilita la publicación del sitio y la transferencia

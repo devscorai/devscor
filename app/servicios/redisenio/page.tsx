@@ -106,7 +106,7 @@ export default function RedisenioPage() {
       <BeforeAfterSection />
 
       <ServicePricingCard
-        price="Desde S/ 800"
+        price="Desde $300"
         description="El precio depende del tamaño de tu sitio actual y de cuánto necesitamos rediseñar. Te enviamos una auditoría gratuita y cotización clara."
         ctaLabel="Auditoría gratuita"
       />

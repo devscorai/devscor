@@ -15,7 +15,7 @@ export const faqs: FaqItem[] = [
     id: "hosting",
     question: "¿El hosting y el dominio están incluidos?",
     answer:
-      "Sí. El primer año de hosting está incluido en todos los planes. Si ya tienes un dominio, lo configuramos sin costo. Si no tienes uno, te ayudamos a comprarlo (cuesta alrededor de S/ 50 al año) y lo dejamos listo para que apunte a tu nueva web.",
+      "Sí. El primer año de hosting está incluido en todos los planes. Si ya tienes un dominio, lo configuramos sin costo. Si no tienes uno, te ayudamos a comprarlo (cuesta alrededor de $15 al año) y lo dejamos listo para que apunte a tu nueva web.",
   },
   {
     id: "edicion",

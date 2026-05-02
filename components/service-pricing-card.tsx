@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
 
 interface ServicePricingCardProps {
-  /** Big headline price, e.g. "Desde S/ 1,200" or "Cotización" */
+  /** Big headline price, e.g. "Desde $500" or "Cotización" */
   price: string
   /** Small label above price, e.g. "Inversión" */
   label?: string

@@ -90,7 +90,7 @@ export default function LandingPagesPage() {
       <IdealForSection />
 
       <ServicePricingCard
-        price="Desde S/ 600"
+        price="Desde $250"
         description="Plan Landing. Una página optimizada para conversión, lista para conectar a campañas pagadas o tráfico orgánico desde el día uno."
         ctaLabel="Empezar mi landing"
       />

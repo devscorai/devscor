@@ -20,7 +20,7 @@ export const pricingTiers: PricingTier[] = [
   {
     id: "landing",
     name: "Landing",
-    price: "Desde S/ 600",
+    price: "Desde $250",
     description:
       "Una página enfocada en convertir visitas en consultas reales.",
     icon: "solar:flag-2-linear",
@@ -38,7 +38,7 @@ export const pricingTiers: PricingTier[] = [
   {
     id: "profesional",
     name: "Profesional",
-    price: "Desde S/ 1,200",
+    price: "Desde $500",
     description:
       "Sitio completo para mostrar tu negocio con identidad propia.",
     icon: "solar:rocket-2-linear",

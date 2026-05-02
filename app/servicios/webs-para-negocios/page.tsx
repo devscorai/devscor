@@ -85,7 +85,7 @@ export default function WebsParaNegociosPage() {
       <Process bare />
 
       <ServicePricingCard
-        price="Desde S/ 1,200"
+        price="Desde $500"
         description="Plan Profesional. Incluye todo lo de arriba más 1 mes de soporte post-lanzamiento. Si necesitas algo más complejo, te armamos una cotización a medida."
         ctaLabel="Cotizar mi web"
       />
