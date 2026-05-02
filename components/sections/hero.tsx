@@ -2,12 +2,17 @@
 
 import * as React from "react"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { ArrowRight } from "lucide-react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 
-import { Aurora } from "@/components/aurora"
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
+
+const Aurora = dynamic(
+  () => import("@/components/aurora").then((mod) => mod.Aurora),
+  { ssr: false },
+)
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const
 
@@ -119,7 +124,7 @@ function BackgroundGlow() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 -top-14 -z-10 h-[760px] overflow-hidden"
+      className="pointer-events-none absolute inset-x-0 -top-14 -z-10 h-[520px] overflow-hidden sm:h-[640px] md:h-[760px]"
     >
       <div className="absolute inset-0 opacity-70 dark:opacity-90">
         <Aurora speed={0.4} blend={0.6} amplitude={1.0} />

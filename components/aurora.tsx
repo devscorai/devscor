@@ -139,20 +139,41 @@ export function Aurora({
   const { resolvedTheme } = useTheme()
   const containerRef = React.useRef<HTMLDivElement>(null)
   const [reduceMotion, setReduceMotion] = React.useState(false)
+  const [isMobile, setIsMobile] = React.useState(false)
 
   React.useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setReduceMotion(mq.matches)
-    const handler = (e: MediaQueryListEvent) => setReduceMotion(e.matches)
-    mq.addEventListener("change", handler)
-    return () => mq.removeEventListener("change", handler)
+    const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const mobileMq = window.matchMedia("(max-width: 640px)")
+    setReduceMotion(reduceMq.matches)
+    setIsMobile(mobileMq.matches)
+    const reduceHandler = (e: MediaQueryListEvent) => setReduceMotion(e.matches)
+    const mobileHandler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    reduceMq.addEventListener("change", reduceHandler)
+    mobileMq.addEventListener("change", mobileHandler)
+    return () => {
+      reduceMq.removeEventListener("change", reduceHandler)
+      mobileMq.removeEventListener("change", mobileHandler)
+    }
   }, [])
 
   const colorStops: ColorStops =
     colorStopsProp ?? (resolvedTheme === "dark" ? DARK_DEFAULT : LIGHT_DEFAULT)
 
-  const propsRef = React.useRef({ colorStops, speed, blend, amplitude })
-  propsRef.current = { colorStops, speed, blend, amplitude }
+  const effectiveSpeed = isMobile ? speed * 0.65 : speed
+  const effectiveAmplitude = isMobile ? amplitude * 0.7 : amplitude
+
+  const propsRef = React.useRef({
+    colorStops,
+    speed: effectiveSpeed,
+    blend,
+    amplitude: effectiveAmplitude,
+  })
+  propsRef.current = {
+    colorStops,
+    speed: effectiveSpeed,
+    blend,
+    amplitude: effectiveAmplitude,
+  }
 
   React.useEffect(() => {
     if (reduceMotion) return
