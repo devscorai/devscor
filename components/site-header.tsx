@@ -37,7 +37,7 @@ export function SiteHeader() {
           "transition-[width,max-width,height,padding,margin-top,border-radius,border-color,background-color,box-shadow,backdrop-filter]",
           scrolled
             ? "mt-3 h-12 w-[calc(100%-1.5rem)] max-w-3xl rounded-full border-border/60 bg-background/65 px-3 shadow-[0_10px_30px_-14px_rgb(0_0_0/0.22),0_2px_8px_-4px_rgb(0_0_0/0.08)] backdrop-blur-xl supports-backdrop-filter:bg-background/55"
-            : "h-14 max-w-7xl rounded-none border-transparent border-b-border/40 bg-background/80 px-4 backdrop-blur-md supports-backdrop-filter:bg-background/60 md:px-6",
+            : "h-14 max-w-7xl rounded-none border-transparent bg-transparent px-4 md:px-6",
         )}
       >
         <div className="flex items-center justify-self-start">

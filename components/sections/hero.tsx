@@ -2,11 +2,17 @@
 
 import * as React from "react"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { ArrowRight } from "lucide-react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
+
+const Aurora = dynamic(
+  () => import("@/components/aurora").then((mod) => mod.Aurora),
+  { ssr: false },
+)
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const
 
@@ -38,7 +44,7 @@ export function Hero() {
     : { initial: "hidden", animate: "visible" }
 
   return (
-    <section className="relative isolate overflow-hidden">
+    <section className="relative isolate">
       <BackgroundGlow />
 
       <motion.div
@@ -118,10 +124,13 @@ function BackgroundGlow() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[600px] overflow-hidden"
+      className="pointer-events-none absolute inset-x-0 -top-14 -z-10 h-[520px] overflow-hidden sm:h-[640px] md:h-[760px]"
     >
-      <div className="absolute left-1/2 top-[-300px] h-[700px] w-[1100px] -translate-x-1/2 rounded-full bg-foreground/6 blur-3xl dark:bg-foreground/8" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,var(--background))]" />
+      <div className="absolute inset-0 opacity-70 dark:opacity-90">
+        <Aurora speed={0.4} blend={0.6} amplitude={1.0} />
+      </div>
+
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_35%,var(--background))]" />
     </div>
   )
 }
