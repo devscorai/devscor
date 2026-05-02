@@ -26,8 +26,8 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} — Páginas web modernas para negocios`,
-    template: `%s — ${siteConfig.name}`,
+    default: `${siteConfig.name} · Web studio`,
+    template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
