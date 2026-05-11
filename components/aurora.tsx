@@ -180,11 +180,16 @@ export function Aurora({
     const ctn = containerRef.current
     if (!ctn) return
 
-    const renderer = new Renderer({
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: true,
-    })
+    let renderer: Renderer
+    try {
+      renderer = new Renderer({
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: true,
+      })
+    } catch {
+      return
+    }
     const gl = renderer.gl
     gl.clearColor(0, 0, 0, 0)
     gl.enable(gl.BLEND)
