@@ -4,8 +4,10 @@ import "./globals.css"
 
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
+import { StructuredData } from "@/components/structured-data"
 import { ThemeProvider } from "@/components/theme-provider"
 import { siteConfig } from "@/config/site"
+import { globalGraphSchema } from "@/lib/structured-data"
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -77,6 +79,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <StructuredData id="ld-global" data={globalGraphSchema()} />
+      </head>
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
         <ThemeProvider
           attribute="class"
