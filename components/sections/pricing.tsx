@@ -208,6 +208,9 @@ function TierCard({
                   ? "noopener noreferrer"
                   : undefined
               }
+              aria-label={`${tier.ctaLabel} — plan ${tier.name}${
+                tier.ctaHref.includes("wa.me") ? " por WhatsApp" : ""
+              }`}
             />
           }
         >
