@@ -32,7 +32,7 @@ export const pricingTiers: PricingTier[] = [
       "100% responsive (móvil, tablet, desktop)",
       "Hosting y dominio incluidos (1er año)",
     ],
-    ctaLabel: "Empezar",
+    ctaLabel: "Empezar mi landing",
     ctaHref: siteConfig.links.whatsapp,
   },
   {
