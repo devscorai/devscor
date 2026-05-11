@@ -3,15 +3,9 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import AutoScroll from "embla-carousel-auto-scroll"
 import { ArrowUpRight } from "lucide-react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel"
 import { BrowserWindow } from "@/components/browser-window"
 import { ShowcaseFrame } from "@/components/showcase-frame"
 import { projects, type Project } from "@/config/projects"
@@ -36,6 +30,8 @@ const item: Variants = {
   },
 }
 
+const MARQUEE_COPIES = 3
+
 export function Showcase() {
   const reduce = useReducedMotion()
   const motionState = reduce
@@ -45,17 +41,6 @@ export function Showcase() {
         whileInView: "visible" as const,
         viewport: { once: true, amount: 0.15 },
       }
-
-  const autoScroll = React.useRef(
-    AutoScroll({
-      speed: 0.6,
-      startDelay: 0,
-      direction: "forward",
-      stopOnInteraction: false,
-      stopOnMouseEnter: true,
-      stopOnFocusIn: false,
-    })
-  )
 
   return (
     <section
@@ -96,28 +81,40 @@ export function Showcase() {
         </motion.div>
       </div>
 
-      <motion.div variants={item} {...motionState}>
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-            dragFree: true,
-            watchDrag: true,
-          }}
-          plugins={[autoScroll.current]}
-          className="group/carousel relative"
+      <motion.div
+        variants={item}
+        {...motionState}
+        className="relative mx-auto w-full max-w-7xl px-4 md:px-6"
+      >
+        <div
+          className="group/marquee flex gap-(--gap) overflow-hidden [--duration:25s] [--gap:1rem] md:[--gap:1.5rem]"
         >
-          <CarouselContent className="-ml-4 px-4 md:-ml-6 md:px-6 *:pl-4 md:*:pl-6">
-            {projects.map((project) => (
-              <CarouselItem
-                key={project.url}
-                className="basis-[88%] sm:basis-[60%] lg:basis-[42%] xl:basis-[36%]"
-              >
-                <ProjectCard project={project} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+          {Array.from({ length: MARQUEE_COPIES }).map((_, copyIdx) => (
+            <div
+              key={copyIdx}
+              aria-hidden={copyIdx > 0}
+              className="flex shrink-0 gap-(--gap) animate-marquee group-hover/marquee:paused motion-reduce:animate-none"
+            >
+              {projects.map((project) => (
+                <div
+                  key={`${copyIdx}-${project.url}`}
+                  className="w-[88vw] shrink-0 sm:w-[60vw] lg:w-[42vw] xl:w-[32vw] xl:max-w-[420px]"
+                >
+                  <ProjectCard project={project} />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1/8 bg-linear-to-r from-background from-30% sm:w-1/6"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-1/8 bg-linear-to-l from-background from-30% sm:w-1/6"
+        />
       </motion.div>
     </section>
   )
@@ -136,7 +133,7 @@ function ProjectCard({ project }: { project: Project }) {
               src={project.imageSrc}
               alt={`${project.name} — vista del sitio web`}
               fill
-              sizes="(min-width: 1280px) 36vw, (min-width: 1024px) 42vw, (min-width: 640px) 60vw, 88vw"
+              sizes="(min-width: 1280px) 32vw, (min-width: 1024px) 42vw, (min-width: 640px) 60vw, 88vw"
               className="object-cover"
             />
           ) : (
