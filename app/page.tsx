@@ -5,8 +5,8 @@ import { ParticleMorph } from "@/components/particle-morph"
 import { SocialLinks } from "@/components/social-links"
 
 const shapes = [
-  { src: "/logo-marfil.svg", fit: 0.58, mobileFit: 0.86, hold: 5500 },
   { src: "/simbolo-marfil.svg", fit: 0.9, hold: 2500 },
+  { src: "/logo-marfil.svg", fit: 0.58, mobileFit: 0.86, hold: 5500 },
 ]
 
 export default function Home() {
