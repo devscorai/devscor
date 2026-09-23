@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { IndigoLight } from "@/components/indigo-light"
+import { LiquidLines } from "@/components/liquid-lines"
 import { ParticleMorph } from "@/components/particle-morph"
 import { SocialLinks } from "@/components/social-links"
 
@@ -15,7 +15,7 @@ export default function Home() {
       className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-[#151515] font-body text-[#F5F3EE]"
       style={{ colorScheme: "dark" }}
     >
-      <IndigoLight className="absolute inset-0 -z-10" />
+      <LiquidLines className="absolute inset-0 -z-10" />
 
       <main className="flex flex-1 flex-col items-center justify-center px-5 text-center">
         <h1>

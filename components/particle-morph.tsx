@@ -78,10 +78,11 @@ const vec3 NIEBLA = vec3(0.788, 0.851, 0.945);
 
 void main() {
   float d = length(gl_PointCoord - 0.5);
-  float core = smoothstep(0.5, 0.0, d);
+  float core = smoothstep(0.5, 0.1, d);
   if (core <= 0.0) discard;
-  vec3 color = mix(MARFIL, NIEBLA, step(0.72, vSeed) * 0.9 + vTravel * 0.35);
-  fragColor = vec4(color, core * (0.85 - vTravel * 0.25) * vAlpha);
+  vec3 color = mix(MARFIL, NIEBLA, step(0.72, vSeed) * 0.8 + vTravel * 0.35);
+  float grain = 0.55 + 0.45 * fract(vSeed * 7.31);
+  fragColor = vec4(color, core * grain * (0.9 - vTravel * 0.25) * vAlpha);
 }
 `
 

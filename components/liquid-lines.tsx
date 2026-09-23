@@ -21,39 +21,59 @@ uniform float uTime;
 out vec4 fragColor;
 
 const vec3 TINTA = vec3(0.082, 0.082, 0.082);
-const vec3 INDIGO = vec3(0.216, 0.188, 0.769);
-const vec3 NIEBLA = vec3(0.788, 0.851, 0.945);
 
-float band(vec2 p, float offset, float speed, float width) {
-  float wave =
-    sin(p.x * 1.6 + uTime * speed + offset) * 0.22 +
-    sin(p.x * 3.1 - uTime * speed * 0.7 + offset * 1.7) * 0.07;
-  float d = abs(p.y - wave);
-  return exp(-d * d / width);
+float hash(float n) {
+  return fract(sin(n * 127.1) * 43758.5453);
+}
+
+float beam(float f, float w) {
+  return exp(-f * f / (2.0 * w * w));
 }
 
 void main() {
   vec2 uv = gl_FragCoord.xy / uResolution;
   vec2 p = (gl_FragCoord.xy - 0.5 * uResolution) / uResolution.y;
+  float t = uTime * 0.4;
 
-  float breath = 0.5 + 0.5 * sin(uTime * 0.6);
+  vec2 q = mat2(0.77, -0.64, 0.64, 0.77) * p;
+  float across = q.x + 0.015 * sin(q.y * 2.4 + t * 1.3);
+  float along = q.y;
 
-  float glow = band(p, 0.0, 0.55, 0.05 + 0.015 * breath);
-  float core = band(p, 0.0, 0.55, 0.0035);
-  float echo = band(p + vec2(0.0, 0.16), 2.1, 0.4, 0.02) * 0.35;
+  vec3 light = vec3(0.0);
+  for (int k = 0; k < 3; k++) {
+    float fk = float(k);
+    float v = across * (7.0 + fk * 6.0) + t * (0.25 + fk * 0.12) + fk * 3.7;
+    float id = floor(v) + fk * 31.0;
+    float f = fract(v) - 0.5;
+    float h = hash(id);
+    if (h < 0.3) continue;
 
-  vec3 color = TINTA;
-  color = mix(color, INDIGO, clamp(glow * 0.85 + echo, 0.0, 1.0));
-  color += NIEBLA * core * 0.35;
+    float blur = hash(id + 7.0);
+    float w = mix(0.006, 0.14, blur * blur * blur);
+    float ca = 0.002 + w * 0.12;
+    float energy = pow(0.01 / w, 0.4);
+    float sheen = 0.25 + 0.75 * smoothstep(-0.9, 1.0,
+      sin(along * (1.2 + h) + h * 6.283 + t * (0.6 + h)));
 
-  float vignette = smoothstep(1.25, 0.2, length(uv - 0.5) * 1.6);
-  color = mix(TINTA, color, vignette);
+    vec3 rgb = vec3(
+      beam(f - ca, w) * 1.05,
+      beam(f, w) * 0.92,
+      beam(f + ca, w) * 1.08
+    );
+        light += rgb * energy * sheen * (h - 0.3) * 4.0;
+  }
+
+  vec3 color = TINTA + 1.0 - exp(-light * 2.0);
+
+  float focus = mix(0.12, 1.0, smoothstep(0.25, 0.85, length(p * vec2(0.8, 1.4))));
+  float vignette = smoothstep(1.6, 0.4, length(uv - 0.5) * 1.6);
+  color = mix(TINTA, color, focus * vignette);
 
   fragColor = vec4(color, 1.0);
 }
 `
 
-export function IndigoLight({ className }: { className?: string }) {
+export function LiquidLines({ className }: { className?: string }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
@@ -120,10 +140,7 @@ export function IndigoLight({ className }: { className?: string }) {
     <div
       ref={containerRef}
       aria-hidden
-      className={cn(
-        "bg-[radial-gradient(ellipse_at_center,#3730C4_0%,#151515_60%)]",
-        className,
-      )}
+      className={cn("bg-[#151515]", className)}
     />
   )
 }
