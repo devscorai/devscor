@@ -17,14 +17,14 @@ export default function Home() {
           <Image
             src="/logo-marfil.svg"
             alt=""
-            width={320}
-            height={84}
+            width={254}
+            height={64}
             priority
             unoptimized
-            className="h-auto w-[min(78vw,560px)]"
+            className="h-auto w-[min(72vw,440px)]"
           />
         </h1>
-        <p className="mt-10 font-label text-xs uppercase tracking-[0.18em] text-[#C9D9F1] animate-in fade-in fill-mode-both delay-300 duration-500">
+        <p className="mt-6 font-label text-xs uppercase tracking-[0.18em] text-[#C9D9F1] animate-in fade-in fill-mode-both delay-300 duration-500">
           Software product studio · Próximamente
         </p>
       </main>

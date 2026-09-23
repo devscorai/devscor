@@ -13,8 +13,8 @@ export function organizationSchema() {
     url: siteConfig.url,
     logo: {
       "@type": "ImageObject",
-      url: `${siteConfig.url}/logo.svg`,
-      contentUrl: `${siteConfig.url}/logo.svg`,
+      url: `${siteConfig.url}/logo-marfil.svg`,
+      contentUrl: `${siteConfig.url}/logo-marfil.svg`,
     },
     image: `${siteConfig.url}/og.png`,
     description: siteConfig.description,

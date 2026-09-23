@@ -1,9 +1,3 @@
-export type NavItem = {
-  title: string
-  href: string
-  description?: string
-}
-
 export const siteConfig = {
   name: "devscor",
   description:
@@ -17,9 +11,3 @@ export const siteConfig = {
     x: "https://x.com/devscorai",
   },
 } as const
-
-export const mainNav: NavItem[] = [
-  { title: "Compañía", href: "/" },
-  { title: "Productos", href: "/products" },
-  { title: "Nosotros", href: "/about" },
-]
