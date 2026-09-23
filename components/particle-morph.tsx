@@ -174,7 +174,7 @@ export function ParticleMorph({
   children?: React.ReactNode
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const [ready, setReady] = React.useState(false)
+  const [fallback, setFallback] = React.useState(false)
 
   React.useEffect(() => {
     const ctn = containerRef.current
@@ -182,6 +182,10 @@ export function ParticleMorph({
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     let disposed = false
     let cleanup = () => {}
+
+    const showFallback = () => {
+      if (!disposed) setFallback(true)
+    }
 
     Promise.all(shapes.map((s) => loadImage(s.src))).then((images) => {
       if (disposed) return
@@ -194,6 +198,7 @@ export function ParticleMorph({
           premultipliedAlpha: false,
         })
       } catch {
+        showFallback()
         return
       }
       const gl = renderer.gl
@@ -381,8 +386,6 @@ export function ParticleMorph({
       ctn.appendChild(canvas)
       build()
       ro.observe(ctn)
-      setReady(true)
-
       let frame = 0
       const tick = (now: number) => {
         frame = requestAnimationFrame(tick)
@@ -427,7 +430,7 @@ export function ParticleMorph({
         canvas.remove()
         gl.getExtension("WEBGL_lose_context")?.loseContext()
       }
-    })
+    }, showFallback)
 
     return () => {
       disposed = true
@@ -440,11 +443,16 @@ export function ParticleMorph({
       <div
         className={cn(
           "absolute inset-0 flex items-center justify-center",
-          ready && "invisible",
+          !fallback && "invisible",
         )}
       >
         {children}
       </div>
+      <noscript>
+        <div className="absolute inset-0 flex items-center justify-center">
+          {children}
+        </div>
+      </noscript>
     </div>
   )
 }
