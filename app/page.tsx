@@ -1,7 +1,13 @@
 import Image from "next/image"
 
 import { IndigoLight } from "@/components/indigo-light"
+import { ParticleMorph } from "@/components/particle-morph"
 import { SocialLinks } from "@/components/social-links"
+
+const shapes = [
+  { src: "/logo-marfil.svg", fit: 0.58, mobileFit: 0.86, hold: 5500 },
+  { src: "/simbolo-marfil.svg", fit: 0.9, hold: 2500 },
+]
 
 export default function Home() {
   return (
@@ -12,19 +18,24 @@ export default function Home() {
       <IndigoLight className="absolute inset-0 -z-10" />
 
       <main className="flex flex-1 flex-col items-center justify-center px-5 text-center">
-        <h1 className="animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
+        <h1>
           <span className="sr-only">Devscor</span>
-          <Image
-            src="/logo-marfil.svg"
-            alt=""
-            width={254}
-            height={64}
-            priority
-            unoptimized
-            className="h-auto w-[min(72vw,440px)]"
-          />
+          <ParticleMorph
+            shapes={shapes}
+            className="aspect-[760/300] w-[min(92vw,760px)]"
+          >
+            <Image
+              src="/logo-marfil.svg"
+              alt=""
+              width={254}
+              height={64}
+              priority
+              unoptimized
+              className="h-auto w-[86%] min-[520px]:w-[58%]"
+            />
+          </ParticleMorph>
         </h1>
-        <p className="mt-6 font-label text-xs uppercase tracking-[0.18em] text-[#C9D9F1] animate-in fade-in fill-mode-both delay-300 duration-500">
+        <p className="-mt-6 font-label text-xs uppercase tracking-[0.18em] text-[#C9D9F1] animate-in fade-in fill-mode-both delay-300 duration-500">
           Software product studio · Próximamente
         </p>
       </main>
