@@ -24,7 +24,7 @@ export function SocialLinks() {
           href={link.href}
           aria-label={link.label}
           title={link.label}
-          className="inline-flex size-9 items-center justify-center rounded-md text-[#C9D9F1] transition-colors duration-200 hover:bg-white/10 hover:text-[#F5F3EE] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5F3EE]"
+          className="inline-flex size-9 items-center justify-center text-[#C9D9F1] outline-none transition-colors duration-200 hover:text-[#F5F3EE] focus-visible:text-[#F5F3EE]"
           {...(link.href.startsWith("http")
             ? { target: "_blank", rel: "noreferrer" }
             : {})}

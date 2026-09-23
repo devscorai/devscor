@@ -24,10 +24,7 @@ export default function Home() {
             className="h-auto w-[min(78vw,560px)]"
           />
         </h1>
-        <p className="mt-6 max-w-[22ch] text-balance font-display text-[clamp(1.375rem,2.6vw,2rem)] font-medium leading-tight tracking-[-0.02em] animate-in fade-in slide-in-from-bottom-4 fill-mode-both delay-150 duration-500 ease-out">
-          De la chispa al sistema.
-        </p>
-        <p className="mt-8 font-label text-xs uppercase tracking-[0.18em] text-[#C9D9F1] animate-in fade-in fill-mode-both delay-300 duration-500">
+        <p className="mt-10 font-label text-xs uppercase tracking-[0.18em] text-[#C9D9F1] animate-in fade-in fill-mode-both delay-300 duration-500">
           Software product studio · Próximamente
         </p>
       </main>
