@@ -1,9 +1,14 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google"
+import {
+  Geist,
+  Geist_Mono,
+  IBM_Plex_Mono,
+  Inter,
+  Playfair_Display,
+  Space_Grotesk,
+} from "next/font/google"
 import "./globals.css"
 
-import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
 import { StructuredData } from "@/components/structured-data"
 import { ThemeProvider } from "@/components/theme-provider"
 import { siteConfig } from "@/config/site"
@@ -26,9 +31,26 @@ const playfair = Playfair_Display({
   weight: ["400", "500", "600"],
 })
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["500", "700"],
+})
+
+const inter = Inter({
+  variable: "--font-body",
+  subsets: ["latin"],
+})
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-label",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+})
+
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} · Web studio`,
+    default: siteConfig.name,
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -38,20 +60,20 @@ export const metadata: Metadata = {
     locale: "es_PE",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} · Web studio`,
+    title: siteConfig.name,
     description: siteConfig.description,
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} — Diseño web profesional en Perú`,
+        alt: siteConfig.name,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} · Web studio`,
+    title: siteConfig.name,
     description: siteConfig.description,
     images: ["/og.png"],
     creator: "@devscorai",
@@ -76,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${spaceGrotesk.variable} ${inter.variable} ${plexMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -89,9 +111,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SiteHeader />
           <main className="flex flex-1 flex-col">{children}</main>
-          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>

@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react"
 
 import { CornerMarks } from "@/components/corner-marks"
 import { Logo } from "@/components/logo"
+import { products } from "@/config/products"
 import { mainNav, siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 
@@ -14,24 +15,19 @@ type FooterLink = {
 
 const footerColumns: { title: string; links: FooterLink[] }[] = [
   {
-    title: "Servicios",
-    links: mainNav.services.map((s) => ({ title: s.title, href: s.href })),
+    title: "Compañía",
+    links: mainNav.map((item) => ({ title: item.title, href: item.href })),
   },
   {
-    title: "Empresa",
-    links: [
-      ...mainNav.links,
-      { title: "Preguntas frecuentes", href: "/#faq" },
-    ],
+    title: "Productos",
+    links: products.map((product) => ({
+      title: product.name,
+      href: product.href,
+    })),
   },
   {
     title: "Contacto",
     links: [
-      {
-        title: "WhatsApp",
-        href: siteConfig.links.whatsapp,
-        external: true,
-      },
       {
         title: "Email",
         href: siteConfig.links.email,
@@ -56,11 +52,6 @@ const socialLinks = [
     href: siteConfig.links.x,
     icon: "simple-icons:x",
   },
-  {
-    label: "WhatsApp",
-    href: siteConfig.links.whatsapp,
-    icon: "simple-icons:whatsapp",
-  },
 ]
 
 export function SiteFooter() {
@@ -83,8 +74,7 @@ export function SiteFooter() {
               </Link>
 
               <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                Diseñamos páginas web modernas para negocios que quieren verse
-                más profesionales y vender mejor.
+                {siteConfig.description}
               </p>
 
               <div className="mt-6 flex items-center gap-1">

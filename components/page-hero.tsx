@@ -42,7 +42,7 @@ export interface PageHeroProps {
   lead?: React.ReactNode
   primaryCta?: PageHeroCta
   secondaryCta?: PageHeroCta
-  /** Size variant. `sm` for inner detail pages, `md` for landing-style pages. */
+  /** Size variant. `sm` for inner pages, `md` for the larger hero. */
   size?: "sm" | "md"
   /** Optional small line below CTAs (e.g. trust line). */
   footnote?: React.ReactNode

@@ -4,8 +4,9 @@ import * as React from "react"
 import { Icon } from "@iconify/react"
 import { motion, useReducedMotion, type TargetAndTransition } from "motion/react"
 
-import type { IconAnimation } from "@/config/pricing"
 import { cn } from "@/lib/utils"
+
+export type IconAnimation = "none" | "bob" | "wave" | "pulse"
 
 const ANIMATIONS: Record<
   Exclude<IconAnimation, "none">,

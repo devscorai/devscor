@@ -7,7 +7,6 @@ import { Logo } from "@/components/logo"
 import { MainNav } from "@/components/main-nav"
 import { MobileMenu } from "@/components/mobile-menu"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 
@@ -56,20 +55,6 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-1.5 justify-self-end">
           <ThemeToggle />
-          <Button
-            size="sm"
-            nativeButton={false}
-            className="hidden h-8 rounded-md px-3 text-sm font-medium md:inline-flex"
-            render={
-              <Link
-                href={siteConfig.links.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-              />
-            }
-          >
-            Cotizar
-          </Button>
           <MobileMenu />
         </div>
       </div>
